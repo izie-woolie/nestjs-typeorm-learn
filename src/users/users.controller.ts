@@ -1,17 +1,41 @@
-import { Controller, Get, Post } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/typeorm/entities/User';
-import { Repository } from 'typeorm';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateUserDto } from './dtos/CreateUser.dto';
+import { UpdateUserDto } from './dtos/UpdateUser.dto';
+import { UsersService } from './users.service';
 
 @Controller('api/users')
 export class UsersController {
-  constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
-  ) {}
-
+  constructor(private userService: UsersService) {}
   @Get()
-  getUsers() {}
+  async getUsers() {
+    const users = await this.userService.findUsers();
+    return users;
+  }
 
   @Post()
-  createUser() {}
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    return await this.userService.createUser(createUserDto);
+  }
+
+  @Put(':id')
+  async updateUserById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    await this.userService.updateUser(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  async deleteUserById(@Param('id', ParseIntPipe) id: number) {
+    await this.userService.deleteUser(id);
+  }
 }
