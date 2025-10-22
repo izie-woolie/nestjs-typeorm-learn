@@ -11,7 +11,7 @@ POST {{ urlApi }}/users
 Content-Type: application/json
 
 {
-  "username": "Moolie",
+  "username": "Woolie",
   "password": "123456789"
 }
 
@@ -27,4 +27,16 @@ Content-Type: application/json
 
 
 ### Delete User
-DELETE {{urlApi}}/users/3
+DELETE {{urlApi}}/users/1
+
+### Create User Profiles
+POST {{ urlApi }}/users/4/profiles
+Content-Type: application/json
+
+{
+  "firstName": "Moolie",
+  "lastName": "the Sheep",
+  "password": "123456789",
+  "age": 24,
+  "dob": "01-01-1997"
+}
