@@ -40,3 +40,12 @@ Content-Type: application/json
   "age": 24,
   "dob": "01-01-1997"
 }
+
+### Create User Posts
+POST {{ urlApi }}/users/5/posts
+Content-Type: application/json
+
+{
+  "title": "Blog Post 2",
+  "description": "Hello, Sheep"
+}
